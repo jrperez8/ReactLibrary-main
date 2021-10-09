@@ -125,9 +125,10 @@ export default class App extends React.Component {
       TextInput_Book_Subjet: "",
       TextInput_Book_Author: "",
       TextInput_Book_Editorial: "",
+      dataSource:[]
     });
   };
-  ShowBooks = () => {
+  AllBooks = () => {
     fetch('http://localhost:80/apiLibrary/ShowAllBooks.php')
     .then((response) => response.json())
     .then((responseJson) => {
@@ -135,7 +136,11 @@ export default class App extends React.Component {
         dataSource:responseJson
       })
     })
-  }
+  };
+ 
+
+ 
+  
 
   render() {
     return (
@@ -225,31 +230,38 @@ export default class App extends React.Component {
           >
             <Text>DELETE BOOK</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={this.AllBooks}>
+            <Text>SHOW ALL</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonclean}
             onPress={this.CleanBooks}
           >
             <Text>CLEAN</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-          onPress={this.ShowBooks}>
-            <Text>SHOW ALL</Text>
-          </TouchableOpacity>
-          <FlatList
-            data={this.state.dataSource}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  alert(item.book_name + " - " + item.book_author)
-                }
-                style={styles.TouchableOpacityStyle}
-              >
-                <Text>
-                  {item.book_name} - {item.book_author}
-                </Text>
-              </TouchableOpacity>
-            )}
-          />          
+          <View style={{alignItems: 'center'}}>
+            <FlatList
+              data={this.state.dataSource}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    alert(
+                      "Género: " +
+                        item.book_subjet +
+                        " - Editorial: " +
+                        item.book_editorial
+                    )
+                  }
+                  style={styles.TouchableOpacityStyle}
+                >
+                  <Text style={styles.textFlat}>
+                    {item.book_name} - {item.book_author}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
         </View>
       </View>
     );
@@ -261,19 +273,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff",
+    backgroundColor: "#5d6d7e",
   },
 
   Titulo:{
     fontSize:40,
     textAlign:"center",
+    fontStyle:"oblique",
+    color:"#f1c40f"
   },
 
   Subtitulo:{
     fontSize:25,
-    marginBottom:5
+    marginBottom:5,
+    color:"white"
   },
-  button : {
+  button: {
     backgroundColor: "#5eff33", 
     borderRadius:5,
     margin:3, 
@@ -303,6 +318,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5722',
     borderRadius: 5,
+    color:"#f1c40f",
+    fontSize:"medium",
+    fontStyle:"italic"
   },
   textinputID:{
     textAlign: 'center',
@@ -313,7 +331,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5722',
     borderRadius: 5,
+    color:"#f1c40f",
+    fontStyle:"italic"
   },
+
+  textFlat:{
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: 5,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#FF5722',
+    borderRadius: 5,
+    fontFamily:"cursive",
+    fontSize:"small",
+    color:"#fcff33",
+    backgroundColor:"black"
+  }
  
 
 });
