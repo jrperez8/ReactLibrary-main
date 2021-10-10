@@ -1,6 +1,16 @@
 //import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Picker,FlatList,Data} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Picker,
+  FlatList,
+  Data,
+} from "react-native";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -12,10 +22,10 @@ export default class App extends React.Component {
       TextInput_Book_Subjet: "",
       TextInput_Book_Author: "",
       TextInput_Book_Editorial: "",
-      dataSource:[]
+      dataSource: [],
     };
   }
- 
+
   InsertBook = () => {
     fetch("http://localhost:80/apiLibrary/InsertBook.php", {
       method: "POST",
@@ -125,22 +135,18 @@ export default class App extends React.Component {
       TextInput_Book_Subjet: "",
       TextInput_Book_Author: "",
       TextInput_Book_Editorial: "",
-      dataSource:[]
+      dataSource: [],
     });
   };
   AllBooks = () => {
-    fetch('http://localhost:80/apiLibrary/ShowAllBooks.php')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        dataSource:responseJson
-      })
-    })
+    fetch("http://localhost:80/apiLibrary/ShowAllBooks.php")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dataSource: responseJson,
+        });
+      });
   };
- 
-
- 
-  
 
   render() {
     return (
@@ -214,16 +220,16 @@ export default class App extends React.Component {
           <TouchableOpacity style={styles.button} onPress={this.InsertBook}>
             <Text>ADD BOOK</Text>
           </TouchableOpacity>
-
-          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            <TouchableOpacity style={styles.button} onPress={this.FindBook}>
-              <Text>FIND BOOK</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={this.UpdateBook}>
-              <Text>UPDATE BOOK</Text>
-            </TouchableOpacity>
-          </View>
-
+        </View>
+        <View>
+          <TouchableOpacity style={styles.button} onPress={this.FindBook}>
+            <Text>FIND BOOK</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.UpdateBook}>
+            <Text>UPDATE BOOK</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
           <TouchableOpacity
             style={styles.buttondelete}
             onPress={this.DeleteBook}
@@ -240,28 +246,28 @@ export default class App extends React.Component {
           >
             <Text>CLEAN</Text>
           </TouchableOpacity>
-          <View style={{alignItems: 'center'}}>
-            <FlatList
-              data={this.state.dataSource}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() =>
-                    alert(
-                      "Género: " +
-                        item.book_subjet +
-                        " - Editorial: " +
-                        item.book_editorial
-                    )
-                  }
-                  style={styles.TouchableOpacityStyle}
-                >
-                  <Text style={styles.textFlat}>
-                    {item.book_name} - {item.book_author}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
+        </View>
+
+        <View style={{ alignItems: "center" }}>
+          <FlatList
+            data={this.state.dataSource}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  alert(
+                    "Género: " +
+                      item.book_subjet +
+                      " - Editorial: " +
+                      item.book_editorial
+                  )
+                }
+              >
+                <Text style={styles.textFlat}>
+                  {item.book_name} - {item.book_author}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
         </View>
       </View>
     );
@@ -276,78 +282,83 @@ const styles = StyleSheet.create({
     backgroundColor: "#5d6d7e",
   },
 
-  Titulo:{
-    fontSize:40,
-    textAlign:"center",
-    fontStyle:"oblique",
-    color:"#f1c40f"
+  Titulo: {
+    fontSize: 40,
+    textAlign: "center",
+    fontStyle: "oblique",
+    color: "#f1c40f",
   },
 
-  Subtitulo:{
-    fontSize:25,
-    marginBottom:5,
-    color:"white"
+  Subtitulo: {
+    fontSize: 25,
+    marginBottom: 5,
+    color: "white",
   },
   button: {
-    backgroundColor: "#5eff33", 
-    borderRadius:5,
-    margin:3, 
+    backgroundColor: "#5eff33",
+    borderRadius: 5,
+    margin: 3,
     padding: 5,
-    textAlign:"center"
+    textAlign: "center",
+    width: 200,
+    height: 30,
   },
-  buttondelete : {
-    backgroundColor: "#ff7a33", 
-    borderRadius:5,
-    margin:3, 
+  buttondelete: {
+    backgroundColor: "#ff7a33",
+    borderRadius: 5,
+    margin: 3,
     padding: 5,
-    textAlign:"center"
+    textAlign: "center",
+    width: 200,
+    height: 30,
   },
-  buttonclean : {
-    backgroundColor: "#33ffda", 
-    borderRadius:5,
-    margin:3, 
+  buttonclean: {
+    backgroundColor: "#33ffda",
+    borderRadius: 5,
+    margin: 3,
     padding: 5,
-    textAlign:"center"
+    textAlign: "center",
+    width: 200,
+    height: 30,
   },
 
-  textinput:{
-    textAlign: 'center',
-    width: '90%',
+  textinput: {
+    textAlign: "center",
+    width: "90%",
     marginBottom: 5,
     height: 40,
     borderWidth: 1,
-    borderColor: '#FF5722',
+    borderColor: "#FF5722",
     borderRadius: 5,
-    color:"#f1c40f",
-    fontSize:"medium",
-    fontStyle:"italic"
+    color: "#f1c40f",
+    fontSize: "medium",
+    fontStyle: "italic",
   },
-  textinputID:{
-    textAlign: 'center',
-    width: '25%',
+  textinputID: {
+    textAlign: "center",
+    width: "25%",
     marginBottom: 5,
-    marginLeft:15,
+    marginLeft: 15,
     height: 40,
     borderWidth: 1,
-    borderColor: '#FF5722',
+    borderColor: "#FF5722",
     borderRadius: 5,
-    color:"#f1c40f",
-    fontStyle:"italic"
+    color: "#f1c40f",
+    fontStyle: "italic",
   },
 
-  textFlat:{
-    textAlign: 'center',
-    width: '100%',
+  textFlat: {
+    textAlign: "center",
+    width: "100%",
     marginBottom: 5,
     height: 20,
     borderWidth: 1,
-    borderColor: '#FF5722',
+    borderColor: "#FF5722",
     borderRadius: 5,
-    fontFamily:"cursive",
-    fontSize:"small",
-    color:"#fcff33",
-    backgroundColor:"black"
-  }
- 
+    fontFamily: "cursive",
+    fontSize: "small",
+    color: "#fcff33",
+    backgroundColor: "black",
+  },
 
 });
