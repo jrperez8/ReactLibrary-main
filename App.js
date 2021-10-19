@@ -10,6 +10,7 @@ import {
   Picker,
   FlatList,
   Data,
+  Image
 } from "react-native";
 
 export default class App extends React.Component {
@@ -162,26 +163,10 @@ export default class App extends React.Component {
             value={this.state.TextInput_Book_ID}
             style={styles.textinputID}
           />
-          <Picker
-            selectedValue={this.state.genre}
-            style={{ height: 40, width: 200, marginLeft: 10 }}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ genre: itemValue })
-            }
-          >
-            <Picker.Item
-              label="Literatura Universal"
-              value="Literatura Universal"
-            />
-            <Picker.Item
-              label="Literatura Latinoamericana"
-              value="Literatura Latinoamericana"
-            />
-            <Picker.Item
-              label="Literatura Colombiana"
-              value="Literatura Colombiana"
-            />
-          </Picker>
+          <Image
+            style={styles.logo}
+            source={require('./assets/biblioteca.png')}
+          />
         </View>
         <TextInput
           placeholder="Nombre Libro"
@@ -249,7 +234,7 @@ export default class App extends React.Component {
         </View>
 
         <View style={{ alignItems: "center" }}>
-          <FlatList
+        <FlatList
             data={this.state.dataSource}
             renderItem={({ item }) => (
               <TouchableOpacity
@@ -293,6 +278,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 5,
     color: "white",
+    marginBottom: 10
   },
   button: {
     backgroundColor: "#5eff33",
@@ -336,15 +322,16 @@ const styles = StyleSheet.create({
   },
   textinputID: {
     textAlign: "center",
-    width: "25%",
+    width: "28%",
     marginBottom: 5,
     marginLeft: 15,
-    height: 40,
+    height: 100,
     borderWidth: 1,
     borderColor: "#FF5722",
     borderRadius: 5,
     color: "#f1c40f",
     fontStyle: "italic",
+    padding:20
   },
 
   textFlat: {
@@ -360,5 +347,12 @@ const styles = StyleSheet.create({
     color: "#fcff33",
     backgroundColor: "black",
   },
+
+  logo:{
+    width:200,
+    height:200,
+    padding:50,
+    margin:5
+  }
 
 });
